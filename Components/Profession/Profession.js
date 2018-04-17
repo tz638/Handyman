@@ -33,8 +33,9 @@ export default class Profession extends Component {
     return (
       <TouchableOpacity style={{marginBottom: 5}}
                         onLongPress={this.props.onLongPress || this.alertProfession}
-                        onPress={this.props.onPress}>
-	    	<Image style={[styles.professionIcon]}
+                        onPress={this.props.onPress}
+                        disabled={this.props.disabled}>
+	    	<Image style={[styles.professionIcon, this.props.style]}
 	    		   source={Users[this.props.name]}/>
     	</TouchableOpacity>
     );

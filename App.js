@@ -3,12 +3,14 @@ import { StyleSheet, Text, View, YellowBox } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 
 import ProfileScreen from './Screens/ProfileScreen/ProfileScreen.js';
-import SettingsScreen from './Screens/SettingsScreen/SettingsScreen.js'
+import SettingsScreen from './Screens/SettingsScreen/SettingsScreen.js';
+import ResultsScreen from './Screens/ResultsScreen/ResultsScreen.js'
 
 const SimpleApp = StackNavigator({
   
-  Settings: { screen: SettingsScreen },
+  Results: { screen: ResultsScreen },
   Profile: { screen: ProfileScreen },
+  Settings: { screen: SettingsScreen },
 });
 
 YellowBox.ignoreWarnings([

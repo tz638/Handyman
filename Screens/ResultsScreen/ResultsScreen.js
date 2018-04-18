@@ -5,6 +5,7 @@ import {
   Image,
   Text,
   TouchableOpacity,
+  ActivityIndicator
 } from 'react-native';
 
 import StarRating from 'react-native-star-rating';
@@ -29,7 +30,7 @@ export default class ResultsScreen extends React.Component {
       results: this.produceRandomResults(),
       buttonSortsDescending: true,
       sortingParameter: 'price',
-      picture: require('../../Pictures/user.png')
+      picture: require('../../Pictures/user.png'),
   	};
   }
 
@@ -44,10 +45,12 @@ export default class ResultsScreen extends React.Component {
         sortingParameter = this.state.sortingParameter;
 
     results.sort((a, b) => {
-      return a[sortingParameter]-b[sortingParameter]
+      if (buttonSortsDescending)
+        return b[sortingParameter]-a[sortingParameter];
+      return a[sortingParameter]-b[sortingParameter];
     });
 
-    this.setState({results: results}, () => {alert("Sorted!")})
+    this.setState({results: [].concat(results)});
   }
 
   produceRandomProfessions = () => {
@@ -97,7 +100,7 @@ export default class ResultsScreen extends React.Component {
       <View style={[styles.buttonContainer]}>
         <TouchableOpacity style={[styles.sortingParameterContainer]}
                           onPress={() => this.changeSortingParameter()}>
-          <Text style={{padding: 5, color: PRIMARY_DARK}}>
+          <Text style={[styles.sortingParameterText]}>
           {this.state.sortingParameter.toUpperCase()}
           </Text>
         </TouchableOpacity>
@@ -211,9 +214,18 @@ export default class ResultsScreen extends React.Component {
                                   item})
   }
 
+  renderActivityIndicator = () => {
+
+    return (
+      <View style={[styles.activityIndicator]}>
+        <ActivityIndicator size="large"/>
+      </View> )
+  }
+
   keyExtractor = (item, index) => item+"";
 
   render() {
+
     return (
       <View style={[styles.container]}>
         <View style={{flexDirection: 'row'}}>
@@ -225,11 +237,13 @@ export default class ResultsScreen extends React.Component {
             {this.renderSortButton()}
           </View>
         </View>
+
         <FlatList data={this.state.results}
                   renderItem={({item}) => this.renderResult(item)}
                   keyExtractor={this.keyExtractor}
                   pagingEnabled={true}>
-        </FlatList>      	
+        </FlatList> 
+
       </View>
     );
   }

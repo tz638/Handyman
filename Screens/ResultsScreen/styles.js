@@ -139,6 +139,16 @@ export default StyleSheet.create({
     justifyContent: 'center'
   },
 
-  
+  sortingParameterText: {
+
+    padding: 5, 
+    color: PRIMARY_DARK
+  },
+
+  activityIndicator: {
+
+    flex: 1, 
+    justifyContent:'center'
+  },
 
 });

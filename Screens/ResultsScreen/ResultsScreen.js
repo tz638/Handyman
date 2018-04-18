@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 
 import StarRating from 'react-native-star-rating';
+import {Icon as ElementsIcon} from 'react-native-elements';
 
 import Users from '../../Users.js';
 import Profession from '../../Components/Profession/Profession.js';
@@ -26,11 +27,27 @@ export default class ResultsScreen extends React.Component {
   	this.state={
   		
       results: this.produceRandomResults(),
+      buttonSortsDescending: true,
+      sortingParameter: 'price',
+      picture: require('../../Pictures/user.png')
   	};
   }
 
   componentDidMount = () => {
 
+  }
+
+  sortResults = () => {
+
+    var results = this.state.results,
+        buttonSortsDescending = this.state.buttonSortsDescending,
+        sortingParameter = this.state.sortingParameter;
+
+    results.sort((a, b) => {
+      return a[sortingParameter]-b[sortingParameter]
+    });
+
+    this.setState({results: results}, () => {alert("Sorted!")})
   }
 
   produceRandomProfessions = () => {
@@ -55,12 +72,10 @@ export default class ResultsScreen extends React.Component {
         prices= [10, 20, 30, 40, 50],
         results = [];
 
-    var arrays = [names, ratings, distances, prices];
-    
+    var arrays = [names, ratings, distances, prices];    
     for (var i=0; i<20; i++) {
 
       var result = [];
-
       for (var j=0; j<4; j++)  {
 
         var random = 5*Math.random();
@@ -76,13 +91,65 @@ export default class ResultsScreen extends React.Component {
     return results;
   }
 
+  renderParameterButton = () => {
+   
+    return (
+      <View style={[styles.buttonContainer]}>
+        <TouchableOpacity style={[styles.sortingParameterContainer]}
+                          onPress={() => this.changeSortingParameter()}>
+          <Text style={{padding: 5, color: PRIMARY_DARK}}>
+          {this.state.sortingParameter.toUpperCase()}
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.sortingArrowStyle]}
+                          onPress={()=>this.changeSortingType()}>
+          <ElementsIcon color={PRIMARY_DARK}
+                        name={this.state.buttonSortsDescending ? 'arrow-down' : 'arrow-up'}
+                        type='material-community'
+                        underlayColor='transparent'>
+          </ElementsIcon>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+
+  renderSortButton = () => {
+
+    return (
+      <TouchableOpacity style={[styles.sortButtonContainer]}
+                        onPress={() => this.sortResults()}>
+          <Text style={[styles.sortButtonText]}>
+            SORT
+          </Text>
+        </TouchableOpacity>
+    )
+  }
+
+  changeSortingType = () => {
+
+    /* Sort by the other criterium */
+    this.setState({buttonSortsDescending: !this.state.buttonSortsDescending});
+  }
+
+  changeSortingParameter = () => {
+
+    var parameters=['price', 'rating', 'distance'],
+        currentParameter=this.state.sortingParameter;
+
+    var length=parameters.length;
+    var index=parameters.indexOf(currentParameter);
+    var nextParameter=parameters[(index+1)%length];
+
+    this.setState({sortingParameter: nextParameter});
+  }
+
   renderProfession = (item) => {
 
     return (
       <Profession disabled={true}
                   name={item}
                   key={item}
-                  style={{height: 25, width: 25}}>
+                  style={[styles.professionSize]}>
       </Profession>
     )
   }
@@ -92,14 +159,16 @@ export default class ResultsScreen extends React.Component {
     return (
 
       <View style={[styles.resultsContainer]}>
-        <TouchableOpacity style={[styles.profilePicture]}>
-          <Image source={require('../../Pictures/user.png')}
+        <TouchableOpacity style={[styles.profilePicture]}
+                          onPress={() => this.navigateToProfile(item)}>
+          <Image source={this.state.picture}
                  style={styles.profilePicture}>
           </Image>
         </TouchableOpacity>
         <View style={[styles.informationContainer]}>
           <View style={[styles.informationRow]}>
-            <TouchableOpacity style={{flex: 1}}>
+            <TouchableOpacity style={{flex: 1}}
+                              onPress={() => this.navigateToProfile(item)}>
               <Text style={[styles.resultName]}>
                 {item.name}
               </Text>
@@ -135,6 +204,13 @@ export default class ResultsScreen extends React.Component {
     )
   }
 
+  navigateToProfile = (item) => {
+
+    this.props.navigation.navigate('Profile', 
+                                  {picture: this.state.picture,
+                                  item})
+  }
+
   keyExtractor = (item, index) => item+"";
 
   render() {
@@ -144,6 +220,10 @@ export default class ResultsScreen extends React.Component {
           <Text style={[styles.foundResultsText]}>
             Found {this.state.results.length} results 
           </Text>
+          <View style={[styles.buttonsContainer]}>
+            {this.renderParameterButton()}
+            {this.renderSortButton()}
+          </View>
         </View>
         <FlatList data={this.state.results}
                   renderItem={({item}) => this.renderResult(item)}

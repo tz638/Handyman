@@ -81,6 +81,64 @@ export default StyleSheet.create({
 
     marginBottom: 15, 
     fontSize: 20
-  }
+  },
+
+  buttonsContainer: {
+
+    flex: 1, 
+    flexDirection: 'row', 
+    justifyContent: 'flex-end'
+  },
+
+  buttonContainer: {
+
+    borderRadius: 10, 
+    width: 120, 
+    borderWidth: 1.5, 
+    marginLeft: 10, 
+    height: 35,
+    borderColor: PRIMARY,
+    flexDirection:'row'
+  },
+
+  professionSize: {
+
+    height: 25, 
+    width: 25
+  },
+
+  sortButtonText: {
+
+    color: 'white', 
+    textAlign: 'center', 
+    textAlignVertical: 'center'
+  },
+
+  sortButtonContainer: {
+
+    width: 45, 
+    backgroundColor: PRIMARY_DARK, 
+    borderRadius: 10, 
+    marginLeft: 10, 
+    height: 35, 
+    alignItems: 'center', 
+    justifyContent: 'center'
+  },
+
+  sortingArrowStyle: {
+
+    flex: 0.3, 
+    alignItems: 'flex-end',
+    justifyContent: 'center'
+  },
+
+  sortingParameterContainer: {
+
+    flex: 0.7, 
+    alignItems: 'flex-start', 
+    justifyContent: 'center'
+  },
+
+  
 
 });

@@ -24,17 +24,18 @@ export default class ProfileScreen extends React.Component {
 
   	super(props);
   	this.state={
-  		professionData: ['floorer', 'plumber', 'car mechanic', 'carpenter'],
+  		professionData: this.props.navigation.state.params.item.professions,
   		reviewData: [{name: "Tarik Zulfikarpasic", date: "27 April 2017", rating: 2, text: "Don't come back"},
   					 {name: "Tari afjarpc", date: "26 April 2028", rating: 1, text: "Terrible"},
   					 {name: "Tjahfjaic", date: "27 April 1917", rating: 3, text: "Alright but nothing special"},
   					 {name: "Tajhfac", date: "14 April 2014", rating: 5, text: "This is the best service that I've ever had. She did everything that was expected, showed up on time, and also brought her own equipment."},
   					],
-  		personalInformation: {name: 'Angelina Jolie', 
-  							  distance: '2.5 km', 
-  							  price: "$40", 
-  							  profilePicture: require('../../Pictures/user.png'),
-  							  rating: 2.75}
+  		personalInformation: {name: this.props.navigation.state.params.item.name, 
+  							  distance: this.props.navigation.state.params.item.distance, 
+  							  price: this.props.navigation.state.params.item.price, 
+  							  profilePicture: this.props.navigation.state.params.picture,
+  							  rating: this.props.navigation.state.params.item.rating
+                }
   	};
   }
 
@@ -63,9 +64,9 @@ export default class ProfileScreen extends React.Component {
       			<View style={[styles.nameDistancePrice]}>
       				<View style={[styles.nameDistance]}>
       					<Text style={[styles.name]}>{this.state.personalInformation.name}</Text>
-			      		<Text style={[styles.distance]}>{this.state.personalInformation.distance} away</Text>
+			      		<Text style={[styles.distance]}>{this.state.personalInformation.distance} km away</Text>
       				</View>
-			      	<Text style={[styles.price]}>{this.state.personalInformation.price}</Text>
+			      	<Text style={[styles.price]}>${this.state.personalInformation.price}</Text>
 		    	  </View>
   		    	<TouchableOpacity onPress={() => {}}
   						      	  style={[styles.requestServiceButton]}>

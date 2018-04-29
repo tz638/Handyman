@@ -12,12 +12,25 @@ import {
   Modal
 } from 'react-native';
 
+import { Icon as ElementsIcon } from 'react-native-elements';
+
 import Profession from '../../Components/Profession/Profession.js';
-import Users from '../../Users.js';
+import Professions from '../../Professions.js';
+import Header from '../../Components/Header/Header.js'
 
 import styles from './styles.js';
 
+var self;
+
 export default class SettingsScreen extends Component<{}>  {
+
+  static navigationOptions = {
+
+    header: (<Header leftIcon = 'menu'
+                     title = 'My Settings'
+                     rightIcon = 'settings'
+                     onLeftIconPress = {() => self.props.navigation.navigate('DrawerOpen')}/>)
+  }
 
   constructor(props) {
     super(props);  
@@ -34,11 +47,12 @@ export default class SettingsScreen extends Component<{}>  {
       modalVisible: false,
       allProfessions: []
     };
+    self=this;
   }
 
   componentDidMount = () => {
 
-    this.setState({allProfessions: Object.keys(Users)});
+    this.setState({allProfessions: Object.keys(Professions)});
   }
 
   capitalizeFirstLetter = (string) => {

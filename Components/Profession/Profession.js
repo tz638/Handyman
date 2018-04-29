@@ -5,7 +5,7 @@ import {
     Alert
 } from 'react-native';
 
-import Users from '../..//Users.js';
+import Professions from '../..//Professions.js';
 
 import styles from './styles.js';
 
@@ -31,12 +31,12 @@ export default class Profession extends Component {
   render = () => {
 
     return (
-      <TouchableOpacity style={{marginBottom: 5}}
+      <TouchableOpacity style={[{marginBottom: 5}, this.props.contentContainerStyle]}
                         onLongPress={this.props.onLongPress || this.alertProfession}
                         onPress={this.props.onPress}
                         disabled={this.props.disabled}>
 	    	<Image style={[styles.professionIcon, this.props.style]}
-	    		   source={Users[this.props.name]}/>
+	    		   source={Professions[this.props.name]}/>
     	</TouchableOpacity>
     );
   }

@@ -1,23 +1,60 @@
-const Users = {'babysitter': require('./Pictures/babysitter.png'), 
-			   'car mechanic': require('./Pictures/carmechanic.png'),
-			   'carpenter': require('./Pictures/carpenter.png'),
-			   'carpet cleaner': require('./Pictures/carpetcleaner.png'),
-			   'cleaner': require('./Pictures/cleaner.png'),
-			   'drywall installer': require('./Pictures/drywallinstaller.png'),
-			   'electrician': require('./Pictures/electrician.png'),
-			   'floorer': require('./Pictures/floorer.png'),
-			   'furniture stain remover': require('./Pictures/furniturestainremover.png'),
-			   'heater installer': require('./Pictures/heaterinstaller.png'),
-			   'hot tub installer': require('./Pictures/hottubinstaller.png'), 
-			   'insulation installer': require('./Pictures/insulationinstaller.png'), 
-			   'lawn mower': require('./Pictures/lawnmower.png'),
-			   'mover': require('./Pictures/mover.png'),
-			   'painter': require('./Pictures/painter.png'),
-			   'plasterer': require('./Pictures/plasterer.png'), 
-			   'plumber': require('./Pictures/plumber.png'), 
-			   'tiler': require('./Pictures/tiler.png'),
-			   'welder': require('./Pictures/welder.png'),
-			   'window and door installer': require('./Pictures/windowanddoorinstaller.png')
-			}
+import Professions from './Professions.js';
 
-export default Users;
+export default class Users {
+
+	constructor()	{
+
+		this.users=this.produceRandomResults()
+	}
+
+	produceRandomResults = () => {
+
+    var names = ['Tarik', 'Jovan', 'Fred', 'Prasant', 'Enes'],
+        ratings = [1, 2, 3, 4, 5],
+        distances = [0.6, 2.3, 1.4, 3.1, 2.2],
+        prices= [10, 20, 30, 40, 50],
+        results = [];
+
+    var arrays = [names, ratings, distances, prices];    
+    for (var i=0; i<100; i++) {
+
+      var result = [];
+      for (var j=0; j<4; j++)  {
+
+        var random = 5*Math.random();
+        result.push(arrays[j][Math.floor(random)]);
+      }
+      var entry = {'name': result[0], 
+                  'rating': result[1], 
+                  'distance': result[2], 
+                  'price': result[3], 
+                  'professions': this.produceRandomProfessions()};
+      results.push(entry);
+    }
+    return results;
+  }
+
+  produceRandomProfessions = () => {
+
+    var possibleProfessions = Object.keys(Professions);
+    var currentProfessions=[];
+    for (var i=0; i<3; i++)  {
+
+      var profession = possibleProfessions[Math.floor(possibleProfessions.length*Math.random())]
+      var put = (i==0) ? 1 : Math.round(Math.random());
+      if (put==1 && !currentProfessions.includes(profession))
+        currentProfessions.push(profession)
+    }
+    return currentProfessions;
+  }
+
+  getAllByProfession = (profession) => {
+
+  	return this.users.filter((user) => {return user.professions.includes(profession)});
+  }
+
+  getAllByName = (name) => {
+
+  	return this.users.filter((user) => {return user.name.includes(name)});
+  }
+}

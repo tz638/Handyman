@@ -30,12 +30,13 @@ export default class ProfileScreen extends React.Component {
   					 {name: "Tjahfjaic", date: "27 April 1917", rating: 3, text: "Alright but nothing special"},
   					 {name: "Tajhfac", date: "14 April 2014", rating: 5, text: "This is the best service that I've ever had. She did everything that was expected, showed up on time, and also brought her own equipment."},
   					],
-  		personalInformation: {name: this.props.navigation.state.params.item.name, 
-  							  distance: this.props.navigation.state.params.item.distance, 
-  							  price: this.props.navigation.state.params.item.price, 
-  							  profilePicture: this.props.navigation.state.params.picture,
-  							  rating: this.props.navigation.state.params.item.rating
-                }
+  		personalInformation: {
+        name: this.props.navigation.state.params.item.name, 
+			  distance: this.props.navigation.state.params.item.distance, 
+			  price: this.props.navigation.state.params.item.price, 
+			  profilePicture: this.props.navigation.state.params.picture,
+			  rating: this.props.navigation.state.params.item.rating
+      }
   	};
   }
 

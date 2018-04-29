@@ -16,6 +16,30 @@ export default StyleSheet.create({
 
   container: CONTAINER,
 
+  header: {
+
+    height: 50, 
+    backgroundColor: PRIMARY_DARK, 
+    marginTop: 25, 
+    flexDirection: 'row', 
+    justifyContent: 'center', 
+    alignItems: 'center'
+  },
+
+  headerIconContainer: {
+
+    width: 60, 
+    justifyContent: 'center', 
+    alignItems: 'center',
+  },
+
+  headerText: {
+
+    flex: 1,
+    color: 'white', 
+    fontSize: 19
+  },
+
   profilePictureContainer: {
     height: 120,
     width: 120,

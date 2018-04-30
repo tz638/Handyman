@@ -15,6 +15,7 @@ import {Icon as ElementsIcon} from 'react-native-elements';
 
 import ResultsScreen from '../ResultsScreen/ResultsScreen.js';
 import SearchScreen from './SearchScreen.js';
+import ProfileScreen from '../ProfileScreen/ProfileScreen.js';
 
 import Header from '../../Components/Header/Header.js';
 
@@ -30,7 +31,8 @@ var self;
 const Home = StackNavigator({
 
   Search: { screen: SearchScreen },
-  Results: { screen: ResultsScreen }
+  Results: { screen: ResultsScreen },
+  Profile: { screen: ProfileScreen },
 })
 
 export default class HomeScreen extends React.Component {

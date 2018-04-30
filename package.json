@@ -20,10 +20,13 @@
   },
   "dependencies": {
     "expo": "^26.0.0",
+    "firebase": "^4.13.1",
     "react": "16.3.0-alpha.1",
     "react-native": "0.54.0",
     "react-native-elements": "^0.19.1",
     "react-native-star-rating": "^1.0.9",
-    "react-navigation": "^1.5.11"
+    "react-navigation": "^1.5.11",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.2.0"
   }
 }

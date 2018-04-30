@@ -20,6 +20,11 @@ import {
 
 export default class ProfileScreen extends React.Component {
   
+  static navigationOptions = {
+
+    header: null
+  }
+
   constructor(props) {
 
   	super(props);
